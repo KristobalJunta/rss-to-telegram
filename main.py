@@ -1,10 +1,10 @@
 # _*_ coding: utf-8 _*_
 
 from config import config
+from bs4 import BeautifulSoup
 import feedparser
 import telebot
 import json
-import re
 import os
 
 
@@ -24,17 +24,11 @@ with open('posts.json') as f:
 
 for entry in feed.entries:
     content = entry['description']
-    image_url = re.search('src=".*"', content)
-
-    if image_url:
-        image_url = image_url.group(0).strip('"').strip('src="')
-
-    brpos = content.index(d)
-    text = content[brpos+len(d):].replace('{}{}'.format(d,d), '\n').replace(d, '\n')
     post = {}
-    if image_url:
-        post['image'] = image_url
-    post['text'] = text
+    soup = BeautifulSoup(content, 'html.parser')
+    if soup.img:
+        post['image'] = soup.img['src']
+    post['text'] = soup.get_text()
     if entry['guid'] not in guids:
         new_posts.append(post)
         guids.append(entry['guid'])
