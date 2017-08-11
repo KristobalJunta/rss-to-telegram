@@ -14,7 +14,7 @@ new_posts = []
 
 if not os.path.exists('posts.json'):
     with open('posts.json', 'w') as f:
-        json.dump(f, [])
+        json.dump([], f)
         f.close()
 
 with open('posts.json') as f:
