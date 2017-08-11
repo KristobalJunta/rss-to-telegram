@@ -11,6 +11,7 @@ import os
 bot = telebot.TeleBot(config.get('telegram-token'))
 feed = feedparser.parse(config.get('feed'))
 new_posts = []
+d = config.get('delimeter')
 
 if not os.path.exists('posts.json'):
     with open('posts.json', 'w') as f:
@@ -28,8 +29,8 @@ for entry in feed.entries:
     if image_url:
         image_url = image_url.group(0).strip('"').strip('src="')
 
-    brpos = content.index("<br/>")
-    text = content[brpos+6:].replace('<br/><br/>', '\n').replace('<br/>', '\n')
+    brpos = content.index(d)
+    text = content[brpos+len(d):].replace('{}{}'.format(d,d), '\n').replace(d, '\n')
     post = {}
     if image_url:
         post['image'] = image_url
