@@ -28,8 +28,8 @@ for entry in feed.entries:
     if image_url:
         image_url = image_url.group(0).strip('"').strip('src="')
 
-    brpos = content.index("<br />")
-    text = content[brpos+6:].replace('<br /><br />', '\n').replace('<br />', '\n')
+    brpos = content.index("<br/>")
+    text = content[brpos+6:].replace('<br/><br/>', '\n').replace('<br/>', '\n')
     post = {}
     if image_url:
         post['image'] = image_url
