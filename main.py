@@ -28,7 +28,8 @@ for entry in feed.entries:
     soup = BeautifulSoup(content, 'html.parser')
     if soup.img:
         post['image'] = soup.img['src']
-    post['text'] = soup.get_text()
+    post['text'] = '\n'.join(soup.stripped_strings)
+    post['text'] += '\n\n{}'.format(entry['link'])
     if entry['guid'] not in guids:
         new_posts.append(post)
         guids.append(entry['guid'])
