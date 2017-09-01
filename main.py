@@ -11,7 +11,6 @@ import os
 bot = telebot.TeleBot(config.get('telegram-token'))
 feed = feedparser.parse(config.get('feed'))
 new_posts = []
-d = config.get('delimeter')
 
 if not os.path.exists('posts.json'):
     with open('posts.json', 'w') as f:
@@ -38,8 +37,6 @@ new_posts.reverse()
 
 for post in new_posts:
     bot.send_message(config.get('channel-id'), post.get('text'))
-    if post.get('image'):
-        bot.send_photo(config.get('channel-id'), post.get('image'))
 
 with open('posts.json', 'w') as f:
     json.dump(guids, f)
