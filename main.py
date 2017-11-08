@@ -46,6 +46,7 @@ for feed in feeds:
         post['date'] = get_timestamp(entry['published'])
 
         if entry['guid'] not in guids:
+            # TODO: strip guid with a regex like /d{4,}\/{?}$/
             new_posts.append(post)
             guids.append(entry['guid'])
 
