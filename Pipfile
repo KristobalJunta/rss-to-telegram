@@ -7,8 +7,3 @@ name = "pypi"
 feedparser = "*"
 "beautifulsoup4" = "*"
 pyTelegramBotAPI = "*"
-
-[dev-packages]
-
-[requires]
-python_version = "3.6"
